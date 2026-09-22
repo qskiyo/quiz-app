@@ -49,6 +49,8 @@ const questions = [
 const questionElement = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
+const progressBar = document.getElementById("progress-bar");
+const progressText = document.getElementById("progress-text");
 
 // Set values
 let currentQuestionPosition = 0;
@@ -69,6 +71,8 @@ function showQuestion() {
     let currentQuestion = questions[currentQuestionPosition];
     let questionNo = currentQuestionPosition + 1;
     questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+    progressBar.style.width = `${(questionNo / questions.length) * 100}%`;
+    progressText.innerHTML = `Question ${questionNo} of ${questions.length}`;
     
     currentQuestion.answers.forEach(answer => {
         const button = document.createElement("button");
@@ -114,6 +118,8 @@ function selectAnswer(e) {
 
 function showScore() {
     resetState();
+    progressBar.style.width = "100%";
+    progressText.innerHTML = "Quiz complete";
     
       if (score === 5) {
         questionElement.innerHTML = `EXCELLENT SCORE`;
